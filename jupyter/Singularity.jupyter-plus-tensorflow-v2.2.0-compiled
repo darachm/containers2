@@ -1,7 +1,7 @@
 #Bootstrap: docker
 #From: ubuntu:20.04
 Bootstrap: localimage
-From: /home/zed/.singularity/darachm-containers-tensorflow2-compiled-R710.simg
+From: /home/zed/.singularity/darachm-containers-tensorflow-v2.2.0-compiled.simg
 
 %labels
 
@@ -23,7 +23,6 @@ From: /home/zed/.singularity/darachm-containers-tensorflow2-compiled-R710.simg
 
     python3 -m pip install -U pip jupyter pandas numpy sklearn matplotlib \
         regex jellyfish networkx biopython
-    python3 -m pip install git+https://github.com/darachm/goenrich
 
     apt autoremove -y
     apt clean
@@ -31,8 +30,8 @@ From: /home/zed/.singularity/darachm-containers-tensorflow2-compiled-R710.simg
 %runscript
     # commands to be executed when the container runs
     echo "Starting notebook..."
-    echo "Open browser to localhost:8889"
-    exec /usr/local/bin/jupyter notebook --ip=127.0.0.1 --port=8889 --no-browser
+    echo "Open browser to localhost:8888"
+    exec /usr/local/bin/jupyter notebook --ip=127.0.0.1 --port=8888 --no-browser
 
 %test
 
