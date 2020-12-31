@@ -2,12 +2,13 @@ Bootstrap: docker
 From: ubuntu:20.04
 #Bootstrap: localimage
 #From: /home/zed/.singularity/darachm-containers-ubuntu2004.simg 
+#From: /home/zed/.singularity/darachm-containers-tensorflow-v2.2.0-compiled-partial.simg
 
 %labels
 
     MAINTAINER darachm
 
-    NOTES Tensorflow2 compiled
+    NOTES Tensorflow2 compiled, 2.2.0
 
 %help
 
@@ -49,8 +50,12 @@ From: ubuntu:20.04
     cd tensorflow
     git checkout v2.2.0
 
+    python3 -m pip install 'numpy<1.19.0' --no-deps
+    bazel clean
+
     bazel build //tensorflow/tools/pip_package:build_pip_package \
-         --python_path="/usr/bin/python3" --config=v2
+        --python_path="/usr/bin/python3" --config=v2 \
+        -s --verbose_failures
     ./bazel-bin/tensorflow/tools/pip_package/build_pip_package /tmp/tensorflow_pkg
 
     python3 -m pip install /tmp/tensorflow_pkg/tensorflow*whl
