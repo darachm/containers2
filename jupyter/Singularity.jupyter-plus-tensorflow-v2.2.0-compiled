@@ -21,7 +21,8 @@ From: /home/zed/.singularity/darachm-containers-tensorflow-v2.2.0-compiled.simg
     apt -y update 
     apt install -y git python3 python3-pip libcgraph6
 
-    python3 -m pip install -U pip jupyter pandas numpy sklearn matplotlib \
+    python3 -m pip install -U pip jupyter jupyterlab \
+        pandas numpy sklearn matplotlib \
         regex jellyfish networkx biopython
 
     apt autoremove -y
