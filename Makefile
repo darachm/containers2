@@ -8,18 +8,20 @@
 
 all_containers = \
 	~/.singularity/darachm-containers-ubuntu2004.simg \
-	~/.singularity/darachm-containers-tensorflow2-compiled-R710.simg \
+	~/.singularity/darachm-containers-tensorflow-v2.2.0-compiled \
+	~/.singularity/darachm-containers-tensorflow-v2.4.0-rc4-compiled \
 	~/.singularity/darachm-containers-jupyter-plus.simg \
-	~/.singularity/darachm-containers-jupyter-plus-tfcompiled.simg \
+	~/.singularity/darachm-containers-jupyter-plus-tensorflow-v2.2.0-compiled.simg \
 	~/.singularity/darachm-containers-jupyter.simg 
 
 # Additional dependencies for some
-~/.singularity/darachm-containers-jupyter-plus-tfcompiled.simg : \
-		~/.singularity/darachm-containers-tensorflow2-compiled-R710.simg 
 ~/.singularity/darachm-containers-jupyter-plus.simg : \
 		~/.singularity/darachm-containers-ubuntu2004.simg
-~/.singularity/darachm-containers-jupyter-plus-tfcompiled.simg : \
-		~/.singularity/darachm-containers-ubuntu2004.simg
+~/.singularity/darachm-containers-jupyter-plus-tfcompiled-v2.4.0-rc4-compiled.simg : \
+		~/.singularity/darachm-containers-tensorflow-v2.4.0-rc4-compiled.simg 
+~/.singularity/darachm-containers-jupyter-plus-tensorflow-v2.2.0-compiled.simg : \
+		~/.singularity/darachm-containers-tensorflow-v2.2.0-compiled.simg 
+
 
 all: $(all_containers)
 	
