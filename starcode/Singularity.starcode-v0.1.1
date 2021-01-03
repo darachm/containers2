@@ -11,8 +11,18 @@ MAINTAINER darachm
     This makes a singularity container for starcode.
     See original starcode repo for instructions.
     Also packaging parallel and mawk to do some command line munging.
-    
+
+%environment
+    export LC_ALL=C.UTF-8
+    export LANG=C.UTF-8
+
 %post
+    export LC_ALL=C.UTF-8
+    export LANG=C.UTF-8
+
+    # Got the below from somewhere else, opening up the sources list
+    #sed -i 's/main/main restricted universe/g' /etc/apt/sources.list
+    export DEBIAN_FRONTEND="noninteractive"
 
     apt-get -y update
     apt-get -y upgrade
