@@ -26,7 +26,7 @@ MAINTAINER darachm
 
     apt-get -y update
     apt-get -y upgrade
-    apt-get -y install git g++ gcc-4.8 make mawk
+    apt-get -y install git g++ gcc make mawk wget tar
 
     cd /home
     git clone https://github.com/gui11aume/starcode
@@ -42,7 +42,6 @@ MAINTAINER darachm
     tar -xvjf parallel-20201222.tar.bz2
     cd parallel-20201222
     ./configure && make && make install
-    cd /
     echo "will cite\n" | parallel --citation \
         || echo "why is this a return value of 1"
     # yay GNU parallel
