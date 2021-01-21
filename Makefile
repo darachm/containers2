@@ -6,6 +6,9 @@
 ~/.singularity/darachm-containers-%.simg : */Singularity.%
 	sudo singularity build $@ $<
 
+~/.singularity/darachm-containers-%-sandbox : */Singularity.%
+	sudo singularity build --sandbox $@ $<
+
 all_containers = \
 	~/.singularity/darachm-containers-ubuntu2004.simg \
 	~/.singularity/darachm-containers-tensorflow-v2.2.0-compiled.simg \
