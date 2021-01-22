@@ -29,7 +29,7 @@ From: ubuntu:20.04
 
     apt-get -y update
     apt-get -y install sqlite3 samtools gawk mawk perl graphviz 
-    apt-get -y install curl gzip git wget g++ gcc-4.8 gawk
+    apt-get -y install curl gzip bzip2 git wget g++ gcc 
     apt-get -y install gnupg2 software-properties-common 
 
 # parallel
