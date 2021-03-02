@@ -6,17 +6,7 @@ MAINTAINER darachm
 
 %help
 
-    This container is for providing `R` with some packages.
-    The idea is to make a general environment, allowing bloat over leaving
-    things out. 
-
-    Should have access to R packages of:
-
-        tidyverse
-        EBImage
-        clusterProfiler
-
-    and others and others and others .......
+    This container is for providing 'R', fairly basic.
 
 %environment
     export LC_ALL=C.UTF-8
@@ -45,41 +35,11 @@ MAINTAINER darachm
 
     apt-get -qq upgrade
 
-    Rscript -e 'install.packages("hash",dependencies=T);'
-    Rscript -e 'install.packages("ggalluvial",dependencies=T);'
     Rscript -e 'install.packages("tidyverse",dependencies=T);'
     Rscript -e 'install.packages("magrittr",dependencies=T);'
-    Rscript -e 'install.packages("EBImage",dependencies=T);'
-    Rscript -e 'install.packages("ggrepel",dependencies=T);'
-    Rscript -e 'install.packages("pheatmap",dependencies=T);'
-    Rscript -e 'install.packages("egg",dependencies=T);'
-    Rscript -e 'install.packages("cowplot",dependencies=T);'
-    Rscript -e 'install.packages("pracma",dependencies=T);'
-    Rscript -e 'install.packages("limma",dependencies=T);'
-    Rscript -e 'install.packages("vegan",dependencies=T);'
-    Rscript -e 'install.packages("UPSetR",dependencies=T);'
-    Rscript -e 'install.packages("fst",dependencies=T);'
-    Rscript -e 'install.packages("randomForest",dependencies=T);'
     Rscript -e 'install.packages("devtools",dependencies=T);'
-    Rscript -e 'install.packages("ghibli",dependencies=T);'
-    Rscript -e 'install.packages("hexbin",dependencies=T);'
-    Rscript -e 'install.packages("xgboost",dependencies=T);'
-    Rscript -e 'install.packages("DBI",dependencies=T);'
-    Rscript -e 'install.packages("RSQLite",dependencies=T);'
-    Rscript -e 'install.packages("mcr",dependencies=T);'
-    Rscript -e 'install.packages("ggsignif",dependencies=T);'
-    Rscript -e 'devtools::install_github("LKremer/ggpointdensity",dependencies=T);'
-
-    Rscript -e 'install.packages("BiocManager",dependencies=T);'
-    Rscript -e 'BiocManager::install(version="3.12",ask=F)'
-    Rscript -e 'BiocManager::install(version="3.12","org.Sc.sgd.db");'
-    Rscript -e 'BiocManager::install(version="3.12","Biobase");'
-    Rscript -e 'BiocManager::install(version="3.12","GOSemSim");'
-    Rscript -e 'BiocManager::install(version="3.12","clusterProfiler");'
-    Rscript -e 'BiocManager::install(version="3.12","variancePartition");'
-    Rscript -e 'sessionInfo();'
 
 %test
 
-    Rscript -e 'library(fst,clusterProfiler);'
+    Rscript -e 'library(tidyverse)'
     Rscript -e 'installed.packages();'
