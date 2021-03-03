@@ -1,7 +1,7 @@
 #Bootstrap: docker
 #From: ubuntu:20.04
 Bootstrap: shub
-From: darachm/containers-r
+From: darachm/containers:r
 
 %labels
 MAINTAINER darachm
