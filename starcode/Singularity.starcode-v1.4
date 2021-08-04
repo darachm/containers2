@@ -10,7 +10,7 @@ MAINTAINER darachm
 
     This makes a singularity container for starcode.
     See original starcode repo for instructions.
-    Also packaging parallel and mawk to do some command line munging.
+    Also installing parallel, mawk, etc to do some command line munging.
 
 %environment
     export LC_ALL=C.UTF-8
@@ -26,7 +26,8 @@ MAINTAINER darachm
 
     apt-get -y update
     apt-get -y upgrade
-    apt-get -y install git g++ gcc make mawk wget tar
+    apt-get -y install git g++ gcc make mawk wget tar python3
+    ln -s /usr/bin/python3 /usr/bin/python
 
     cd /home
     git clone https://github.com/gui11aume/starcode
@@ -34,6 +35,7 @@ MAINTAINER darachm
     git checkout 1.4
     make
     mv starcode /usr/local/bin/starcode
+    mv starcode-umi /usr/local/bin/starcode-umi
     cd
 
     # Installing parallel from source, as the latest in ubuntu's pkgs is
@@ -49,5 +51,6 @@ MAINTAINER darachm
 %test
 
     starcode -h
+    starcode-umi -h
     parallel -h
 
