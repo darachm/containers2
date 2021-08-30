@@ -1,8 +1,13 @@
-This is for tracking, hosting recipes for Singularity containers, such that
-it can get mirrored on Github and singularity-hub can get it.
+This is a repo for Darach to track and host containers for doing 
+bioinf/research.
+
+- The main intention is to run as Singularity containers on linux systems,
+    but they're written as Docker for compatibility (thanks Mohammed Kahlfan
+    for the tip).
+- There's a hope that this can get built and hosted on GitHub
 
 Organzation copied from [jlboat](https://github.com/jlboat/BioinfoContainers).
 (Of course, makes total sense to just use tags to organize things!)
 
 Some recipes are for individual tools, some are for workflows and so are
-combos.
+combos. Trying to figure out the ontology of this.
