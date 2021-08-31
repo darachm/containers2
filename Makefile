@@ -12,6 +12,9 @@
 #~/.singularity/darachm-containers-jupyter-plus-%.simg: ~/.singularity/darachm-containers-%.simg
 
 
+docker-% : */Dockerfile.%
+	docker build -f $< -t $(subst docker-,,$@) $(subst docker-,,$@)
+
 ~/.singularity/darachm-containers-jupyter-plus-tensorflow-v2.4.0-rc4-compiled.simg: ~/.singularity/darachm-containers-tensorflow-v2.4.0-rc4-compiled.simg
 
 
