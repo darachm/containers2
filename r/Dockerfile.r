@@ -1,7 +1,5 @@
 FROM ubuntu:20.04
 
-RUN apt update
-
 #    # Got the below from somewhere else, opening up the sources list
 #RUN sed -i 's/main/main restricted universe/g' /etc/apt/sources.list
     #ln -fs /usr/share/zoneinfo/America/Los_Angeles /etc/localtime
@@ -10,19 +8,21 @@ ENV LC_ALL=C.UTF-8
 ENV LANG=C.UTF-8
 ARG DEBIAN_FRONTEND="noninteractive"
 
-RUN apt update
-RUN apt install -y apt-transport-https software-properties-common
+RUN apt-get update && apt-get install -y \
+    apt-transport-https software-properties-common
 
 RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9
 RUN add-apt-repository 'deb [arch=amd64,i386] https://cloud.r-project.org/bin/linux/ubuntu focal-cran40/'
-RUN apt update
+RUN apt-get update && apt-get install -y \
+    r-base r-base-dev
 
-RUN install r-base r-base-dev
-RUN install vim gnupg2 git wget g++ gcc libxml2-dev libssl-dev \
-        curl libcurl4-openssl-dev pandoc \
-        libfontconfig1-dev libgit2-dev
+RUN apt-get update && apt-get install -y \
+    vim gnupg2 git wget g++ gcc \
+    libxml2-dev libssl-dev \
+    curl libcurl4-openssl-dev pandoc \
+    libfontconfig1-dev libgit2-dev
 
-RUN upgrade
+RUN apt upgrade -y
 
 RUN Rscript -e 'install.packages("tidyverse",dependencies=T);'
 RUN Rscript -e 'install.packages("magrittr",dependencies=T);'
@@ -57,6 +57,7 @@ RUN Rscript -e 'install.packages("xgboost",dependencies=T);'
 RUN Rscript -e 'install.packages("EBImage",dependencies=T);'
 
 RUN Rscript -e 'install.packages("BiocManager",dependencies=T);'
+
 RUN Rscript -e 'BiocManager::install(version="3.12",ask=F)'
 RUN Rscript -e 'BiocManager::install(version="3.12","org.Sc.sgd.db");'
 RUN Rscript -e 'BiocManager::install(version="3.12","Biobase");'
