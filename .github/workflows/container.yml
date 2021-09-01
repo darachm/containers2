@@ -1,6 +1,8 @@
 name: docker build
 on:
   push:
+    branches:
+      - ghci
 #  release: 
 #    types: [published]
 #    branches: # Edit the branches here if you want to change deploy behavior
