@@ -1,5 +1,5 @@
 
-.PHONY: all
+.PHONY: all 
 
 # TODO figure out how to get shell variable sing cache dir into targets
 
@@ -11,9 +11,10 @@
 
 #~/.singularity/darachm-containers-jupyter-plus-%.simg: ~/.singularity/darachm-containers-%.simg
 
+username=darachm
 
 docker-% : */Dockerfile.%
-	docker build -f $< -t $(subst docker-,,$@) $(subst docker-,,$@)
+	docker build -f $< -t $(username)/$(subst docker-,,$@) $(subst docker-,,$@)
 
 ~/.singularity/darachm-containers-jupyter-plus-tensorflow-v2.4.0-rc4-compiled.simg: ~/.singularity/darachm-containers-tensorflow-v2.4.0-rc4-compiled.simg
 
