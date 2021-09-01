@@ -1,103 +1,150 @@
-name: docker build
+# This workflow uses actions that are not certified by GitHub.
+# They are provided by a third-party and are governed by
+# separate terms of service, privacy policy, and support
+# documentation.
+
+name: Create and publish a Docker image
+
 on:
   push:
-    branches:
-      - ghci
-#  release: 
-#    types: [published]
-#    branches: # Edit the branches here if you want to change deploy behavior
-#      - ghci #main
+    branches: ['ghci']
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
 
 jobs:
-  push_to_registry:
-    name: push image to hub
+  build-and-push-image:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
     steps:
-      - name: checkout
-        uses: action/checkout@v2
-      - name: logon
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Log in to the Container registry
         uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
         with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
-      - name: extract meta
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Extract metadata (tags, labels) for Docker
         id: meta
         uses: docker/metadata-action@98669ae865ea3cffbcbaa878cf57c20bbf1c6c38
         with:
-          images: darachm/
-      - name: build push
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+
+      - name: Build and push Docker image
         uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
         with:
-          context: bioinfmunger
+          context: .
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
 
-  # Do the builds on all pull requests (to test them)
-#  pull_request: []
-
+#name: docker build
+#on:
+#  push:
+#    branches:
+#      - ghci
+##  release: 
+##    types: [published]
+##    branches: # Edit the branches here if you want to change deploy behavior
+##      - ghci #main
+#
 #jobs:
-#  acknowledge:
+#  push_to_registry:
+#    name: push image to hub
 #    runs-on: ubuntu-latest
 #    steps:
-#      - uses: actions/checkout@v2
-#      - run: echo "do that thing"
-#
-
-#  changes:
-#    name: "Changed Singularity Recipes"
-#    runs-on: ubuntu-latest
-#    outputs:
-#      changed_file: ${{ steps.files.outputs.added_modified }}
-#    steps:
-#      - id: files
-#        uses: jitterbit/get-changed-files@b17fbb00bdc0c0f63fcf166580804b4d2cdc2a42
+#      - name: checkout
+#        uses: action/checkout@v2
+#      - name: logon
+#        uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
 #        with:
-#          format: 'json'
+#          username: ${{ secrets.DOCKER_USERNAME }}
+#          password: ${{ secrets.DOCKER_PASSWORD }}
+#      - name: extract meta
+#        id: meta
+#        uses: docker/metadata-action@98669ae865ea3cffbcbaa878cf57c20bbf1c6c38
+#        with:
+#          images: darachm/
+#      - name: build push
+#        uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
+#        with:
+#          context: bioinfmunger
+#          push: true
+#          tags: ${{ steps.meta.outputs.tags }}
+#          labels: ${{ steps.meta.outputs.labels }}
 #
-#  build-test-containers:
-#    needs:
-#      - changes
-#    runs-on: ubuntu-latest
-#    strategy:
-#      # Keep going on other deployments if anything bloops
-#      fail-fast: false
-#      matrix:
-#        changed_file: ${{ fromJson(needs.changes.outputs.changed_file) }}
-#        singularity_version:
-#          - '3.8.1'
+#  # Do the builds on all pull requests (to test them)
+##  pull_request: []
 #
-#    container:
-#      image: quay.io/singularity/singularity:v${{ matrix.singularity_version }}
-#      options: --privileged
+##jobs:
+##  acknowledge:
+##    runs-on: ubuntu-latest
+##    steps:
+##      - uses: actions/checkout@v2
+##      - run: echo "do that thing"
+##
 #
-#    name: Check ${{ matrix.changed_file }}
-#    steps:
-#
-#      - name: Check out code for the container builds
-#        uses: actions/checkout@v2
-#
-#      - name: Continue if Singularity Recipe
-#        run: |
-#          # Continue if we have a changed Singularity recipe
-#          if [[ "${{ matrix.changed_file }}" = *Singularity* ]]; then
-#            echo "keepgoing=true" >> $GITHUB_ENV
-#          fi
-#
-#      - name: Build Container
-#        if: ${{ env.keepgoing == 'true' }}
-#        env:
-#          recipe: ${{ matrix.changed_file }}
-#        run: |
-#         ls
-#         if [ -f "${{ matrix.changed_file }}" ]; then
-#            sudo -E singularity build container.sif ${{ matrix.changed_file }}
-#            tag=$(echo "${recipe/Singularity\./}")
-#            if [ "$tag" == "Singularity" ]; then
-#                tag=latest
-#            fi
-#            # Build the container and name by tag
-#            echo "Tag is $tag."
+##  changes:
+##    name: "Changed Singularity Recipes"
+##    runs-on: ubuntu-latest
+##    outputs:
+##      changed_file: ${{ steps.files.outputs.added_modified }}
+##    steps:
+##      - id: files
+##        uses: jitterbit/get-changed-files@b17fbb00bdc0c0f63fcf166580804b4d2cdc2a42
+##        with:
+##          format: 'json'
+##
+##  build-test-containers:
+##    needs:
+##      - changes
+##    runs-on: ubuntu-latest
+##    strategy:
+##      # Keep going on other deployments if anything bloops
+##      fail-fast: false
+##      matrix:
+##        changed_file: ${{ fromJson(needs.changes.outputs.changed_file) }}
+##        singularity_version:
+##          - '3.8.1'
+##
+##    container:
+##      image: quay.io/singularity/singularity:v${{ matrix.singularity_version }}
+##      options: --privileged
+##
+##    name: Check ${{ matrix.changed_file }}
+##    steps:
+##
+##      - name: Check out code for the container builds
+##        uses: actions/checkout@v2
+##
+##      - name: Continue if Singularity Recipe
+##        run: |
+##          # Continue if we have a changed Singularity recipe
+##          if [[ "${{ matrix.changed_file }}" = *Singularity* ]]; then
+##            echo "keepgoing=true" >> $GITHUB_ENV
+##          fi
+##
+##      - name: Build Container
+##        if: ${{ env.keepgoing == 'true' }}
+##        env:
+##          recipe: ${{ matrix.changed_file }}
+##        run: |
+##         ls
+##         if [ -f "${{ matrix.changed_file }}" ]; then
+##            sudo -E singularity build container.sif ${{ matrix.changed_file }}
+##            tag=$(echo "${recipe/Singularity\./}")
+##            if [ "$tag" == "Singularity" ]; then
+##                tag=latest
+##            fi
+##            # Build the container and name by tag
+##            echo "Tag is $tag."
 #            echo "tag=$tag" >> $GITHUB_ENV
 #         else
 #           echo "${{ matrix.changed_file }} is not found."
