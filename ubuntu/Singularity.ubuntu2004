@@ -30,6 +30,7 @@ DATE 2021-09-08
 
     #apt-get -y install git g++ gcc make mawk wget tar python3
     #ln -s /usr/bin/python3 /usr/bin/python
+    #export PATH=${PATH}:/guppy/ont-guppy-cpu/bin
 
 %test
 
