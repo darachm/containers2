@@ -22,6 +22,8 @@ RUN apt-get update && apt-get install -y \
 RUN apt-get update && apt-get install -y \
      csvkit # for csv munging
 RUN apt-get update && apt-get install -y \
+     bedtools # bedtools
+RUN apt-get update && apt-get install -y \
      graphviz default-jdk # for nextflow
 
 WORKDIR /
