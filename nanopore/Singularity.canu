@@ -26,7 +26,7 @@ DATE 2021-09-15
     apt-get -y update
 
     apt-get -y install wget gnupg2 perl gnuplot default-jre libgomp1 #python3 python3-pip
-    #apt-get -y install samtools make gcc zlib1g-dev libbz2-dev liblzma-dev libcurl4 libcurl4-openssl-dev git
+    apt-get -y install samtools make gcc zlib1g-dev libbz2-dev liblzma-dev libcurl4 libcurl4-openssl-dev git
 
     #curl -L https://github.com/marbl/canu/releases/download/v2.2/canu-2.2.Linux-amd64.tar.xz --output canu-2.2.Linux.tar.xz 
     wget https://github.com/marbl/canu/releases/download/v2.2/canu-2.2.tar.xz
