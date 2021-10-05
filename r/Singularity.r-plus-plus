@@ -18,6 +18,7 @@ MAINTAINER darachm
     apt-get -qq upgrade
 
     Rscript -e 'install.packages("stringdist",dependencies=T);'
+    Rscript -e 'BiocManager::install("ggbio",version="3.12",ask=F)'
 
 %test
 
