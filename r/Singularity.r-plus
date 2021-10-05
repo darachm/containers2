@@ -44,12 +44,12 @@ MAINTAINER darachm
     Rscript -e 'devtools::install_github("LKremer/ggpointdensity",dependencies=T);'
 
     Rscript -e 'install.packages("BiocManager",dependencies=T);'
-    Rscript -e 'BiocManager::install(version="3.12",ask=F)'
-    Rscript -e 'BiocManager::install(version="3.12","org.Sc.sgd.db");'
-    Rscript -e 'BiocManager::install(version="3.12","Biobase");'
-    Rscript -e 'BiocManager::install(version="3.12","GOSemSim");'
-    Rscript -e 'BiocManager::install(version="3.12","clusterProfiler");'
-    Rscript -e 'BiocManager::install(version="3.12","variancePartition");'
+    Rscript -e 'BiocManager::install(version="3.13",ask=F)'
+    Rscript -e 'BiocManager::install(version="3.13","org.Sc.sgd.db");'
+    Rscript -e 'BiocManager::install(version="3.13","Biobase");'
+    Rscript -e 'BiocManager::install(version="3.13","GOSemSim");'
+    Rscript -e 'BiocManager::install(version="3.13","clusterProfiler");'
+    Rscript -e 'BiocManager::install(version="3.13","variancePartition");'
     Rscript -e 'sessionInfo();'
 
 %test
