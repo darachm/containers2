@@ -33,7 +33,7 @@ From: ubuntu:20.04
 # yanky
     apt-get -y install wget curl
 #compresssion
-    apt-get -y install gzip bzip2 lzma 
+    apt-get -y install gzip bzip2 lzma pigz
 # munging
     apt-get -y install gawk mawk perl
 # samtools
