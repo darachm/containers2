@@ -1,0 +1,45 @@
+Bootstrap: docker
+From: ubuntu:20.04
+#Bootstrap: localimage
+#From: /home/zed/.singularity/darachm-containers-ubuntu2004.simg 
+
+%labels
+
+    MAINTAINER darachm
+
+    NOTES cuda then Tensorflow
+
+%help
+
+%environment
+    export LC_ALL=C.UTF-8
+    export LANG=C.UTF-8
+
+%post
+    export LC_ALL=C.UTF-8
+    export LANG=C.UTF-8
+    # Got the below from somewhere else, opening up the sources list
+    #sed -i 's/main/main restricted universe/g' /etc/apt/sources.list
+    export DEBIAN_FRONTEND="noninteractive"
+
+    apt -y update 
+    apt install -y git python3-dev python3-pip #golang
+    python3 -m pip install -U pip wheel
+    #python3 -m pip install numpy==1.19.4 six==1.15.0
+    #python3 -m pip install -U keras_preprocessing --no-deps
+    
+    wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/cuda-ubuntu2004.pin 
+    mv cuda-ubuntu2004.pin /etc/apt/preferences.d/cuda-repository-pin-600
+    apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/7fa2af80.pub
+    add-apt-repository "deb https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/ /"
+
+    wget https://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu2004/x86_64/nvidia-machine-learning-repo-ubuntu2004_1.0.0-1_amd64.deb
+    apt-get install -y ./nvidia-machine-learning-repo-ubuntu2004_1.0.0-1_amd64.deb
+
+    apt-get update
+    apt-get install --no-install-recommends -y python3 python3-pip cuda libcudnn8 libcudnn8-dev
+    python3 -m pip install tensorflow
+    
+
+%test
+    python3 -c "import tensorflow as tf; print(tf.__version__)"
