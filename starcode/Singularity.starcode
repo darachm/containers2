@@ -34,7 +34,7 @@ MAINTAINER darachm
     #git clone https://github.com/darachm/starcode
     cd starcode
     #git checkout 1.4
-    git checkout feature/tidy # 1600e5dc2a209851af091e384bd5a587c8328bf0
+    git checkout master
     make
     mv starcode /usr/local/bin/starcode
     mv starcode-umi /usr/local/bin/starcode-umi
