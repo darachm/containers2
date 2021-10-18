@@ -13,7 +13,7 @@ MAINTAINER darachm
 %post
 
     apt-get update
-    apt-get install -y tmux
+    apt-get install -y tmux rxvt-unicode
 
 #    cd /
 #    git clone https://github.com/jalvesaq/colorout.git
