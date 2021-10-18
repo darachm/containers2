@@ -1,0 +1,25 @@
+#Bootstrap: docker
+#From: ubuntu:20.04
+Bootstrap: localimage
+From: /home/zed/.singularity/r-tidy-extra.sif
+
+%labels
+MAINTAINER darachm
+
+%help
+
+    nvimr
+
+%post
+
+    apt-get update
+    apt-get install -y tmux
+
+#    cd /
+#    git clone https://github.com/jalvesaq/colorout.git
+#    R CMD INSTALL colorout
+    
+%test
+
+    Rscript -e 'installed.packages();'
+
