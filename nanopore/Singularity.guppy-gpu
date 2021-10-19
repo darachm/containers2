@@ -14,7 +14,6 @@ DATE 2021-10-17
 %environment
     export LC_ALL=C.UTF-8
     export LANG=C.UTF-8
-    export PATH=${PATH}:/guppy/ont-guppy-cpu/bin
 
 %post
     export LC_ALL=C.UTF-8
