@@ -20,7 +20,9 @@ docker-% : */Dockerfile.%
 	docker build -f $< -t $(username)/$(subst docker-,,$@) $(subst docker-,,$@)
 
 bps: ~/.singularity/bioinfmunger.sif ~/.singularity/starcode.sif ~/.singularity/itermae-plus.sif ~/.singularity/guppy-gpu.sif ~/.singularity/racon.sif ~/.singularity/lh3-aligners.sif ~/.singularity/htseq.sif ~/.singularity/kalign2.sif 
-#~/.singularity/medaka.sif 
+
+~/.singularity/medaka.sif : ~/.singularity/cuda-tensorflow-v2.2.3.sif
+~/.singularity/cuda-tensorflow-v2.2.3.sif :
 
 ~/.singularity/cuda-tensorflow-v2.6.0.sif :
 
